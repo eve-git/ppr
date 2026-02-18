@@ -1,6 +1,7 @@
 import type { TransferTypeSelectIF } from '@/interfaces'
 import { ApiTransferTypes, UITransferTypes } from '@/enums/transferTypes'
 import { BlankSearchTypes } from '@/enums'
+import { getFeatureFlag } from '@/utils'
 
 export const StaffTransferTypesOrg: Array<TransferTypeSelectIF> = [
   {
@@ -454,6 +455,77 @@ export const StaffTransferTypes: Array<TransferTypeSelectIF> = [
   }
 ]
 
+const transferDueToDeathTypes: Array<TransferTypeSelectIF> = [
+  {
+    class: 'transfer-type-list-header',
+    disabled: true,
+    divider: false,
+    group: 2,
+    transferType: BlankSearchTypes.BLANK1 as any,
+    textLabel: 'Transfer Due to Death' as any,
+    color: 'primary'
+  },
+  {
+    divider: false,
+    disabled: false,
+    transferType: ApiTransferTypes.SURVIVING_JOINT_TENANT,
+    textLabel: UITransferTypes.SURVIVING_JOINT_TENANT,
+    group: 2,
+    tooltip: {
+      title: 'Supporting Documents Required',
+      bullets: ['Ownership Transfer or Change form',
+        'Original or certified copy of death certificate issued from Canada or the United States.']
+    }
+  },
+  {
+    divider: false,
+    disabled: false,
+    transferType: ApiTransferTypes.TO_EXECUTOR_PROBATE_WILL,
+    textLabel: UITransferTypes.TO_EXECUTOR_PROBATE_WILL,
+    group: 2,
+    tooltip: {
+      title: 'Supporting Documents Required',
+      bullets: ['Ownership Transfer or Change form',
+        'Court certified true copy of the Grant of Probate with the will attached.',
+        'Original or certified copy of death certificate issued from Canada or the United States ' +
+        'for deceased joint tenants, if any, except for the person who last died. ']
+    }
+  },
+  {
+    divider: false,
+    disabled: false,
+    transferType: ApiTransferTypes.TO_EXECUTOR_UNDER_25K_WILL,
+    textLabel: UITransferTypes.TO_EXECUTOR_UNDER_25K_WILL,
+    group: 2,
+    tooltip: {
+      title: 'Supporting Documents Required',
+      bullets: ['Ownership Transfer or Change form',
+        'Original signed Affidavit of Executor form',
+        'Certified true copy of will',
+        'Original or certified copy of death certificate issued from Canada or the United States.'
+      ],
+      note: 'Value of the estate must be no more than $25,000, ' +
+        'including the total value of the manufactured home.'
+    }
+  },
+  {
+    divider: false,
+    disabled: false,
+    transferType: ApiTransferTypes.TO_ADMIN_NO_WILL,
+    textLabel: UITransferTypes.TO_ADMIN_NO_WILL,
+    group: 2,
+    tooltip: {
+      title: 'Supporting Documents Required',
+      bullets: ['Ownership Transfer or Change form',
+        'Certified true copy of Grant of Administration issued by the court',
+        'Affidavit of Administration with list of Assets and Liabilities',
+        'Original or certified copy of death certificate issued from Canada or the United States ' +
+          'for deceased joint tenants, if any, except for the person who last died.'
+      ]
+    }
+  }
+]
+
 export const ClientTransferTypes: Array<TransferTypeSelectIF> = [
   {
     class: 'transfer-type-list-header',
@@ -478,45 +550,6 @@ export const ClientTransferTypes: Array<TransferTypeSelectIF> = [
 ]
 
 export const QualifiedSupplierTransferTypes: Array<TransferTypeSelectIF> = [
-  {
-    class: 'transfer-type-list-header',
-    disabled: true,
-    divider: false,
-    group: 1,
-    transferType: BlankSearchTypes.BLANK1 as any,
-    textLabel: 'Transfer' as any,
-    color: 'primary'
-  },
-  {
-    divider: false,
-    disabled: false,
-    transferType: ApiTransferTypes.SALE_OR_GIFT,
-    textLabel: UITransferTypes.SALE_OR_GIFT,
-    group: 1,
-    tooltip: {
-      title: 'Supporting Documents Required',
-      bullets: ['Ownership Transfer or Change form', 'Bill of Sale']
-    }
-  },
-  {
-    class: 'transfer-type-list-header',
-    disabled: true,
-    divider: false,
-    group: 2,
-    transferType: BlankSearchTypes.BLANK2 as any,
-    textLabel: 'Transfer Due to Death' as any,
-    color: 'primary'
-  },
-  {
-    divider: false,
-    disabled: false,
-    transferType: ApiTransferTypes.SURVIVING_JOINT_TENANT,
-    textLabel: UITransferTypes.SURVIVING_JOINT_TENANT,
-    group: 2,
-    tooltip: {
-      title: 'Supporting Documents Required',
-      bullets: ['Ownership Transfer or Change form',
-        'Original or certified copy of death certificate issued from Canada or the United States.']
-    }
-  }
-]
+  ...ClientTransferTypes,
+  ...(getFeatureFlag('mhr-transfer-enable-tod') ? transferDueToDeathTypes : [])
+];
