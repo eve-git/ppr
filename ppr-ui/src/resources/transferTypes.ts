@@ -549,7 +549,9 @@ export const ClientTransferTypes: Array<TransferTypeSelectIF> = [
   }
 ]
 
-export const QualifiedSupplierTransferTypes: Array<TransferTypeSelectIF> = [
-  ...ClientTransferTypes,
-  ...(getFeatureFlag('mhr-transfer-enable-tod') ? transferDueToDeathTypes : [])
-];
+export const QualifiedSupplierTransferTypes = (): Array<TransferTypeSelectIF> => {
+  return [
+    ...ClientTransferTypes,
+    ...(getFeatureFlag('mhr-transfer-enable-tod') ? transferDueToDeathTypes : [])
+  ];
+};

@@ -302,9 +302,9 @@ export default defineComponent({
             : StaffTransferTypesOrg
           case isRoleQualifiedSupplierLawyersNotaries.value:
             return isMiscTransfersEnabled
-              ? QualifiedSupplierTransferTypes.filter(item =>
+              ? QualifiedSupplierTransferTypes().filter(item =>
               localState.displayGroup[item.group] || item.class === 'transfer-type-list-header')
-              : QualifiedSupplierTransferTypes
+              : QualifiedSupplierTransferTypes()
           default:
             return ClientTransferTypes
         }

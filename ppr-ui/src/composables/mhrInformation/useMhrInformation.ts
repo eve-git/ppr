@@ -379,7 +379,7 @@ export const useMhrInformation = () => {
         case isRoleStaffReg.value:
           return StaffTransferTypes
         case isRoleQualifiedSupplierLawyersNotaries.value:
-          return QualifiedSupplierTransferTypes
+          return QualifiedSupplierTransferTypes()
         default:
           return ClientTransferTypes
       }
