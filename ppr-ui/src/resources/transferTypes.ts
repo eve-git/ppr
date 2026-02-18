@@ -461,7 +461,7 @@ const transferDueToDeathTypes: Array<TransferTypeSelectIF> = [
     disabled: true,
     divider: false,
     group: 2,
-    transferType: BlankSearchTypes.BLANK1 as any,
+    transferType: BlankSearchTypes.BLANK2 as any,
     textLabel: 'Transfer Due to Death' as any,
     color: 'primary'
   },
@@ -553,5 +553,5 @@ export const QualifiedSupplierTransferTypes = (): Array<TransferTypeSelectIF> =>
   return [
     ...ClientTransferTypes,
     ...(getFeatureFlag('mhr-transfer-enable-tod') ? transferDueToDeathTypes : [])
-  ];
-};
+  ]
+}
