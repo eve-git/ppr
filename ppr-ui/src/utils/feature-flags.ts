@@ -7,6 +7,7 @@ import { initialize } from 'launchdarkly-js-client-sdk'
 export const defaultFlagSet: LDFlagSet = {
   'enable-manage-party-codes': false,
   'enable-analyst-queue': false,
+  'mhr-transfer-enable-tod': false,
   'banner-text': '' // by default, there is no banner text
 }
 /**
