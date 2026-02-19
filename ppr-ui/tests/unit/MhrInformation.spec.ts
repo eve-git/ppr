@@ -170,7 +170,7 @@ describe.skip('Mhr Information', async () => {
     await store.setUserProductSubscriptionsCodes([ProductCode.LAWYERS_NOTARIES])
     await nextTick()
 
-    expect(transferTypeComponent.vm.transferTypesSelector).toStrictEqual(QualifiedSupplierTransferTypes)
+    expect(transferTypeComponent.vm.transferTypesSelector).toStrictEqual(QualifiedSupplierTransferTypes())
     // reset staff role
     await store.setAuthRoles([AuthRoles.MHR])
   })
